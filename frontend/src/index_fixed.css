@@ -1,0 +1,40 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-surface text-text-primary dark:bg-primary dark:text-surface transition-colors duration-300;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-300/50 dark:bg-zinc-800/50 rounded-full hover:bg-secondary transition-colors;
+}
+
+/* Selection Color */
+::selection {
+  @apply bg-secondary/30 text-primary dark:text-white;
+}
+
+.btn-premium {
+  @apply relative overflow-hidden bg-gradient-to-r from-secondary-dark via-secondary to-secondary-light text-primary font-black py-3 px-8 rounded-2xl shadow-xl hover:shadow-2xl hover:shadow-secondary/20 hover:-translate-y-0.5 active:scale-95 transition-all duration-300;
+}
+
+input,
+textarea,
+select {
+  @apply bg-white dark:bg-primary-light text-text-primary dark:text-surface border-zinc-200 dark:border-zinc-800 focus:ring-secondary dark:focus:ring-secondary focus:border-secondary dark:focus:border-secondary transition-colors duration-200;
+}

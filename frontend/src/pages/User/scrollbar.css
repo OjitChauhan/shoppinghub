@@ -1,0 +1,22 @@
+/*
+ * Rounded vertical scrollbar styling for modern browsers
+ */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #3cbeac;
+  border-radius: 9999px; /* fully rounded */
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #285570;
+}
+
+/* Firefox */
+scrollbar-width: thin;
+scrollbar-color: #3cbeac transparent;

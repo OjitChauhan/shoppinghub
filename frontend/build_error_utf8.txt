@@ -1,0 +1,114 @@
+﻿
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v4.5.14 [32mbuilding for production...[36m[39m
+transforming...
+node.exe : 
+Browserslist: 
+caniuse-lite is 
+outdated. Please run:
+At C:\Program Files\nod
+ejs\npm.ps1:29 char:3
++   & $NODE_EXE 
+$NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (Browserslist:   
+  c...ed. Please ru    
+n::String) [], Rem    
+oteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+  npx update-browsersli
+st-db@latest
+  Why you should do it 
+regularly: https://gith
+ub.com/browserslist/upd
+ate-db#readme
+[32mΓ£ô[39m 54 modules transformed.
+[32mΓ£ô built in 3.79s[39m
+[31m[vite:css] 
+[postcss] C:/Users/sain
+i/ecom/frontend/src/ind
+ex.css:6:3: The 
+`font-['Poppins',` 
+class does not exist. 
+If `font-['Poppins',` 
+is a custom class, 
+make sure it is 
+defined within a 
+`@layer` 
+directive.[39m
+file: [36mC:/Users/sai
+ni/ecom/frontend/src/in
+dex.css:6:3[39m
+[31merror during 
+build:
+CssSyntaxError: 
+[postcss] C:/Users/sain
+i/ecom/frontend/src/ind
+ex.css:6:3: The 
+`font-['Poppins',` 
+class does not exist. 
+If `font-['Poppins',` 
+is a custom class, 
+make sure it is 
+defined within a 
+`@layer` directive.
+    at Input.error (C:\
+Users\saini\ecom\fronte
+nd\node_modules\postcss
+\lib\input.js:106:16)
+    at AtRule.error (C:
+\Users\saini\ecom\front
+end\node_modules\postcs
+s\lib\node.js:115:32)
+    at processApply (C:
+\Users\saini\ecom\front
+end\node_modules\tailwi
+ndcss\lib\lib\expandApp
+lyAtRules.js:380:29)
+    at C:\Users\saini\e
+com\frontend\node_modul
+es\tailwindcss\lib\lib\
+expandApplyAtRules.js:5
+38:9
+    at C:\Users\saini\e
+com\frontend\node_modul
+es\tailwindcss\lib\proc
+essTailwindFeatures.js:
+57:50
+    at async plugins (C
+:\Users\saini\ecom\fron
+tend\node_modules\tailw
+indcss\lib\plugin.js:38
+:17)
+    at async 
+LazyResult.runAsync (C:
+\Users\saini\ecom\front
+end\node_modules\postcs
+s\lib\lazy-result.js:26
+1:11)
+    at async 
+compileCSS (file:///C:/
+Users/saini/ecom/fronte
+nd/node_modules/vite/di
+st/node/chunks/dep-827b
+23df.js:38904:25)
+    at async 
+Object.transform (file:
+///C:/Users/saini/ecom/
+frontend/node_modules/v
+ite/dist/node/chunks/de
+p-827b23df.js:38301:56)
+    at async transform 
+(file:///C:/Users/saini
+/ecom/frontend/node_mod
+ules/rollup/dist/es/sha
+red/node-entry.js:24449
+:16)[39m

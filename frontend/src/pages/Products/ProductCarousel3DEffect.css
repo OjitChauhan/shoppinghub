@@ -1,0 +1,45 @@
+/* ProductCarousel3DEffect.css */
+
+.product-carousel-3d .slick-slide {
+  transition: transform 0.3s ease-in-out; /* Smooth and quick transform */
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.product-carousel-3d .slick-center .carousel-card-3d {
+  transform: scale(1.05) rotateY(0deg);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.product-carousel-3d .carousel-card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+  /* Slight 3D tilt when not centered */
+  transform: rotateY(10deg);
+  opacity: 0.8;
+}
+
+.product-carousel-3d .slick-slide:not(.slick-center) {
+  opacity: 0.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .product-carousel-3d {
+    width: 100% !important;
+  }
+
+  .carousel-card-3d {
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important; /* Remove 3D effect on mobile for clarity */
+    opacity: 1 !important;
+  }
+
+  .product-carousel-3d .slick-slide {
+    opacity: 1 !important;
+  }
+}
