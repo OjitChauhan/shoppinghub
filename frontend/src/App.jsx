@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
 import CompareBar from "./components/CompareBar";
+import DarkSportsBackground3D from "./components/DarkSportsBackground3D";
 
 const App = () => {
   useEffect(() => {
@@ -26,7 +27,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className="bg-surface dark:bg-primary min-h-screen text-content-primary dark:text-surface transition-colors duration-300 flex flex-col">
+    <div className="relative bg-surface dark:bg-primary min-h-screen text-content-primary dark:text-surface transition-colors duration-300 dark:[background-image:linear-gradient(140deg,#050505_0%,#09090b_55%,#0f0f12_100%)]">
+      <DarkSportsBackground3D />
+      <div className="relative z-10 flex flex-col min-h-screen">
       <ToastContainer
         theme={localStorage.getItem("theme") === "dark" ? "dark" : "light"}
       />
@@ -44,6 +47,7 @@ const App = () => {
       </main>
       <Footer />
       <CompareBar />
+      </div>
     </div>
   );
 };

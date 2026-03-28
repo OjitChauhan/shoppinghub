@@ -16,12 +16,12 @@ const OrderList = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#05091A] transition-colors px-4 sm:px-6 py-8">
+    <div className="min-h-screen bg-[#fff7fb] dark:bg-[#0A0A0B] transition-colors px-4 sm:px-6 py-8 rounded-[2rem]">
       <div className="max-w-7xl mx-auto">
 
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-display font-black text-gray-900 dark:text-white">
-            All <span className="text-orange-500">Orders</span>
+            All <span className="text-pink-500">Orders</span>
           </h1>
         </div>
 
@@ -29,7 +29,7 @@ const OrderList = () => {
           <Message variant="danger">{error?.data?.message || error.error}</Message>
         ) : (
           <div className="rounded-2xl overflow-hidden
-            bg-white dark:bg-[#0B1530]
+            bg-white dark:bg-[#151518]
             border border-black/6 dark:border-white/8
             shadow-card-light dark:shadow-card-dark">
             <div className="overflow-x-auto">
@@ -47,7 +47,7 @@ const OrderList = () => {
                   {orders.map((order, i) => (
                     <tr key={order._id}
                       className={`border-b border-black/4 dark:border-white/5 transition-colors
-                        hover:bg-orange-50 dark:hover:bg-orange-500/6
+                        hover:bg-pink-50 dark:hover:bg-pink-500/6
                         ${i % 2 === 0 ? "" : "bg-gray-50/50 dark:bg-white/2"}`}>
                       <td className="px-4 py-3">
                         <img src={order.orderItems[0]?.image} alt="" className="w-11 h-11 rounded-xl object-cover border border-black/6 dark:border-white/8" />
@@ -60,7 +60,7 @@ const OrderList = () => {
                       <td className="px-4 py-3"><StatusBadge ok={order.isDelivered} /></td>
                       <td className="px-4 py-3">
                         <Link to={`/order/${order._id}`}>
-                          <button className="px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 transition-all active:scale-95">
+                          <button className="px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-pink-500 hover:bg-pink-600 transition-all active:scale-95">
                             View
                           </button>
                         </Link>

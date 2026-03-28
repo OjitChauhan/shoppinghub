@@ -52,20 +52,20 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#05091A] transition-colors px-4 sm:px-8 py-8">
+    <div className="min-h-screen bg-[#fff7fb] dark:bg-[#0A0A0B] transition-colors px-4 sm:px-8 py-8 rounded-[2rem]">
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-display font-black text-gray-900 dark:text-white">
-            Manage <span className="text-orange-500">Categories</span>
+            Manage <span className="text-pink-500">Categories</span>
           </h1>
           <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Create, update or delete product categories</p>
         </div>
 
         {/* Create form card */}
         <div className="rounded-2xl p-6 mb-8
-          bg-white dark:bg-[#0B1530]
+          bg-white dark:bg-[#151518]
           border border-black/6 dark:border-white/8
           shadow-card-light dark:shadow-card-dark">
           <h2 className="text-base font-bold text-gray-800 dark:text-white mb-4">Add New Category</h2>
@@ -79,18 +79,18 @@ const CategoryList = () => {
               border border-gray-200 dark:border-white/10
               text-gray-900 dark:text-white
               placeholder-gray-400 dark:placeholder-slate-500
-              focus:border-orange-500 dark:focus:border-orange-500
-              focus:ring-2 focus:ring-orange-500/20 transition-all"
+              focus:border-pink-500 dark:focus:border-pink-500
+              focus:ring-2 focus:ring-pink-500/20 transition-all"
             buttonClassName="mt-3 px-6 py-3 rounded-xl text-sm font-black text-white
-              bg-orange-500 hover:bg-orange-600
-              shadow-lg shadow-orange-500/25
+              bg-pink-500 hover:bg-pink-600
+              shadow-lg shadow-pink-500/25
               transition-all hover:scale-[1.02] active:scale-[0.98]"
           />
         </div>
 
         {/* Category chips */}
         <div className="rounded-2xl p-6
-          bg-white dark:bg-[#0B1530]
+          bg-white dark:bg-[#151518]
           border border-black/6 dark:border-white/8
           shadow-card-light dark:shadow-card-dark">
           <h2 className="text-base font-bold text-gray-800 dark:text-white mb-5">All Categories</h2>
@@ -103,9 +103,9 @@ const CategoryList = () => {
                   bg-gray-100 dark:bg-white/8
                   text-gray-700 dark:text-slate-200
                   border border-gray-200 dark:border-white/10
-                  hover:bg-orange-50 dark:hover:bg-orange-500/15
-                  hover:text-orange-600 dark:hover:text-orange-400
-                  hover:border-orange-300 dark:hover:border-orange-500/40
+                  hover:bg-pink-50 dark:hover:bg-pink-500/15
+                  hover:text-pink-600 dark:hover:text-pink-400
+                  hover:border-pink-300 dark:hover:border-pink-500/40
                   transition-all hover:scale-105 active:scale-95">
                 {category.name}
               </button>
@@ -130,11 +130,11 @@ const CategoryList = () => {
                 bg-gray-50 dark:bg-[#05091A]
                 border border-gray-200 dark:border-white/10
                 text-gray-900 dark:text-white
-                focus:border-orange-500 dark:focus:border-orange-500
-                focus:ring-2 focus:ring-orange-500/20 transition-all"
+                focus:border-pink-500 dark:focus:border-pink-500
+                focus:ring-2 focus:ring-pink-500/20 transition-all"
               buttonClassName="w-full mt-2 px-6 py-3 rounded-xl text-sm font-black text-white
-                bg-orange-500 hover:bg-orange-600
-                shadow-lg shadow-orange-500/25 transition-all"
+                bg-pink-500 hover:bg-pink-600
+                shadow-lg shadow-pink-500/25 transition-all"
               deleteButtonClassName="w-full mt-3 px-6 py-3 rounded-xl text-sm font-black text-white
                 bg-red-500 hover:bg-red-600
                 shadow-lg shadow-red-500/25 transition-all"

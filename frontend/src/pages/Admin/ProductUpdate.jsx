@@ -76,11 +76,11 @@ const ProductUpdate = () => {
   };
 
   return (
-    <div className="container xl:mx-[9rem] sm:mx-[0]">
+    <div className="container xl:mx-[9rem] sm:mx-[0] bg-[#fff7fb] dark:bg-[#0A0A0B] min-h-screen rounded-[2rem] transition-colors">
       <div className="flex flex-col md:flex-row">
         <AdminMenu />
         <div className="md:w-3/4 p-3">
-          <div className="h-12 text-xl font-bold">Create Product</div>
+          <div className="h-12 text-xl font-bold text-zinc-900 dark:text-white">Create Product</div>
 
           {imageUrl && (
             <div className="text-center">
@@ -93,7 +93,7 @@ const ProductUpdate = () => {
           )}
 
           <div className="mb-3">
-            <label className="border text-white px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11">
+            <label className="border border-pink-300 dark:border-pink-500/30 text-zinc-800 dark:text-white px-4 block w-full text-center rounded-lg cursor-pointer font-bold py-11 bg-white/70 dark:bg-white/5">
               {image ? image.name : "Upload Image"}
               <input
                 type="file"
@@ -108,19 +108,19 @@ const ProductUpdate = () => {
           <div className="p-3">
             <div className="flex flex-wrap">
               <div>
-                <label>Name</label>
+                <label className="text-zinc-700 dark:text-zinc-300">Name</label>
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border border-pink-100 dark:border-pink-500/20 rounded-lg bg-white dark:bg-[#151518] text-zinc-900 dark:text-white"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="ml-10">
-                <label>Price</label>
+                <label className="text-zinc-700 dark:text-zinc-300">Price</label>
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border border-pink-100 dark:border-pink-500/20 rounded-lg bg-white dark:bg-[#151518] text-zinc-900 dark:text-white"
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
@@ -129,48 +129,48 @@ const ProductUpdate = () => {
 
             <div className="flex flex-wrap">
               <div>
-                <label>Quantity</label>
+                <label className="text-zinc-700 dark:text-zinc-300">Quantity</label>
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border border-pink-100 dark:border-pink-500/20 rounded-lg bg-white dark:bg-[#151518] text-zinc-900 dark:text-white"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
               <div className="ml-10">
-                <label>Brand</label>
+                <label className="text-zinc-700 dark:text-zinc-300">Brand</label>
                 <input
                   type="text"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border border-pink-100 dark:border-pink-500/20 rounded-lg bg-white dark:bg-[#151518] text-zinc-900 dark:text-white"
                   value={brand}
                   onChange={(e) => setBrand(e.target.value)}
                 />
               </div>
             </div>
 
-            <label>Description</label>
+            <label className="text-zinc-700 dark:text-zinc-300">Description</label>
             <textarea
-              className="p-2 mb-3 bg-[#101011] border rounded-lg w-[95%] text-white"
+              className="p-2 mb-3 bg-white dark:bg-[#151518] border border-pink-100 dark:border-pink-500/20 rounded-lg w-[95%] text-zinc-900 dark:text-white"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
 
             <div className="flex justify-between">
               <div>
-                <label>Count In Stock</label>
+                <label className="text-zinc-700 dark:text-zinc-300">Count In Stock</label>
                 <input
                   type="number"
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border border-pink-100 dark:border-pink-500/20 rounded-lg bg-white dark:bg-[#151518] text-zinc-900 dark:text-white"
                   value={stock}
                   onChange={(e) => setStock(e.target.value)}
                 />
               </div>
 
               <div>
-                <label>Category</label>
+                <label className="text-zinc-700 dark:text-zinc-300">Category</label>
                 <select
                   value={category}
-                  className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white"
+                  className="p-4 mb-3 w-[30rem] border border-pink-100 dark:border-pink-500/20 rounded-lg bg-white dark:bg-[#151518] text-zinc-900 dark:text-white"
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   <option value="">Choose Category</option>
@@ -185,7 +185,7 @@ const ProductUpdate = () => {
 
             <button
               onClick={handleSubmit}
-              className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-pink-600"
+              className="py-4 px-10 mt-5 rounded-lg text-lg font-bold bg-pink-500 hover:bg-pink-600 text-white transition-colors"
             >
               Submit
             </button>

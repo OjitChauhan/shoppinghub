@@ -17,7 +17,7 @@ const Header = () => {
     <header className="w-full bg-surface dark:bg-primary overflow-hidden transition-colors duration-300">
 
       {/* ── Hero Banner ── */}
-      <div className="relative overflow-hidden min-h-[520px] md:min-h-[580px] py-20 md:py-28 px-6 md:px-14 xl:px-24"
+      <div className="relative overflow-hidden min-h-[520px] md:min-h-[580px] py-16 md:py-28 px-4 md:px-14 xl:px-24"
         style={{ background: "#05091A" }}>
         {/* React Three Fiber 3D animated scene */}
         <HeroBackground3D />
@@ -25,13 +25,13 @@ const Header = () => {
         <div className="absolute inset-0 z-0 pointer-events-none"
           style={{ background:"linear-gradient(to right, rgba(5,9,26,0.88) 0%, rgba(5,9,26,0.55) 60%, rgba(5,9,26,0.25) 100%)" }} />
 
-        <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="relative z-10 max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
           {/* Left – Copy */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="flex-1 text-white text-center lg:text-left"
+            className="flex-1 text-white text-center lg:text-left max-w-2xl"
           >
             <span className="inline-block text-[10px] font-black tracking-[0.35em] uppercase text-secondary mb-5 border border-secondary/30 px-4 py-1.5 rounded-full bg-secondary/10">
               ✦ New Season, New Style
@@ -84,7 +84,7 @@ const Header = () => {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="w-full lg:w-[55%] flex-shrink-0"
+            className="hidden lg:block w-full lg:w-[55%] flex-shrink-0"
           >
             <ProductCarousel />
           </motion.div>

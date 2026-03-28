@@ -22,6 +22,7 @@ import {
   getAISimilarProducts,
   getAIFeatureAnalysis,
 } from "../controllers/aiComparatorController.js";
+import { getAIAssistantReply } from "../controllers/aiAssistantController.js";
 import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
 import checkId from "../middlewares/checkId.js";
 
@@ -38,6 +39,7 @@ router.get("/new", fetchNewProducts);
 router.get("/:id/related", fetchRelatedProducts);
 router.post("/recommendations", fetchRecommendations);
 router.post("/compare", compareProducts);
+router.post("/ai-assistant", getAIAssistantReply);
 router.get("/:id/ai-similar", getAISimilarProducts);
 router.post("/ai-feature-analysis", getAIFeatureAnalysis);
 

@@ -68,8 +68,11 @@ const Home = () => {
       ) : isError ? (
         <Message variant="danger">{isError?.data?.message || isError.error}</Message>
       ) : (
-        <main className="min-h-screen bg-surface dark:bg-primary text-content-primary dark:text-surface transition-colors duration-300">
-          <div className="px-4 sm:px-8 md:px-14 xl:px-24 py-14 sm:py-20">
+        <main className="relative min-h-screen bg-surface dark:bg-primary text-content-primary dark:text-surface transition-colors duration-300 overflow-hidden rounded-[2rem]">
+          <HeroBackground3D />
+          {/* Keep Home overlay dark in dark mode (avoid white wash) */}
+          <div className="absolute inset-0 bg-black/20 dark:bg-black/10 backdrop-blur-[1px] pointer-events-none" />
+          <div className="relative z-10 px-4 sm:px-8 md:px-14 xl:px-24 py-14 sm:py-20">
 
             {/* ── Section Header ───────────────────────────── */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12 gap-6">
@@ -94,7 +97,7 @@ const Home = () => {
               >
                 <Link
                   to="/shop"
-                  className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-bold bg-zinc-900 dark:bg-secondary text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-yellow-300 transition-all shadow-lg dark:shadow-secondary/30 hover:scale-105 active:scale-95"
+                  className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-bold bg-zinc-900 dark:bg-secondary text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-pink-300 transition-all shadow-lg dark:shadow-secondary/30 hover:scale-105 active:scale-95"
                 >
                   Full Collection
                   <FaArrowRight size={12} />
@@ -138,10 +141,10 @@ const Home = () => {
                 transition={{ duration: 0.6 }}
                 className="my-10"
               >
-                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-900 via-[#0F172A] to-zinc-950 p-8 md:p-12">
+                <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-zinc-950 via-[#151518] to-zinc-950 p-8 md:p-12">
                   {/* Background blobs */}
                   <div className="absolute -top-12 -right-12 w-64 h-64 bg-secondary/15 blur-[80px] rounded-full pointer-events-none" />
-                  <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-purple-500/10 blur-[80px] rounded-full pointer-events-none" />
+                  <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-pink-500/10 blur-[80px] rounded-full pointer-events-none" />
 
                   <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
                     {/* Left copy */}
@@ -157,7 +160,7 @@ const Home = () => {
                       </p>
                       <Link
                         to="/purpose-shopping"
-                        className="inline-flex items-center gap-2.5 bg-secondary text-primary font-black text-sm uppercase tracking-widest px-7 py-3.5 rounded-2xl hover:bg-yellow-300 active:scale-95 transition-all shadow-xl shadow-secondary/20"
+                        className="inline-flex items-center gap-2.5 bg-secondary text-primary font-black text-sm uppercase tracking-widest px-7 py-3.5 rounded-2xl hover:bg-pink-300 active:scale-95 transition-all shadow-xl shadow-secondary/20"
                       >
                         <FaCompass size={14} /> Explore Purposes
                       </Link>
@@ -208,19 +211,19 @@ const Home = () => {
                 className="my-10"
               >
                 <div className="relative overflow-hidden rounded-3xl p-8 md:p-12"
-                     style={{ background: "linear-gradient(135deg,#080c18 0%,#0f1f3d 50%,#080c18 100%)" }}>
+                     style={{ background: "linear-gradient(135deg,#0a0a0b 0%,#151518 50%,#0a0a0b 100%)" }}>
                   {/* Ambient blobs */}
-                  <div className="absolute -top-16 left-1/4 w-72 h-72 bg-yellow-400/10 blur-[100px] rounded-full pointer-events-none" />
-                  <div className="absolute -bottom-16 right-1/4 w-48 h-48 bg-blue-500/10 blur-[80px] rounded-full pointer-events-none" />
+                  <div className="absolute -top-16 left-1/4 w-72 h-72 bg-pink-400/10 blur-[100px] rounded-full pointer-events-none" />
+                  <div className="absolute -bottom-16 right-1/4 w-48 h-48 bg-pink-500/10 blur-[80px] rounded-full pointer-events-none" />
 
                   <div className="relative z-10 flex flex-col lg:flex-row items-center gap-10">
                     {/* Left copy */}
                     <div className="flex-1 text-center lg:text-left">
-                      <span className="inline-block text-[9px] font-black tracking-[0.4em] uppercase text-yellow-300 mb-4 border border-yellow-400/30 px-4 py-1.5 rounded-full bg-yellow-400/10">
+                      <span className="inline-block text-[9px] font-black tracking-[0.4em] uppercase text-pink-300 mb-4 border border-pink-400/30 px-4 py-1.5 rounded-full bg-pink-400/10">
                         ✦ AI-Powered AR
                       </span>
                       <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3 leading-tight">
-                        Try Before <span className="text-yellow-400">You Buy</span>
+                        Try Before <span className="text-pink-400">You Buy</span>
                       </h2>
                       <p className="text-zinc-400 text-sm leading-relaxed max-w-sm mx-auto lg:mx-0 mb-4">
                         See clothes, jewellery, watches and even furniture on you — live — using your camera only. No downloads needed.
@@ -231,7 +234,7 @@ const Home = () => {
                         ))}
                       </div>
                       <Link to="/virtual-tryon-hub"
-                        className="inline-flex items-center gap-2.5 bg-yellow-400 text-black font-black text-sm uppercase tracking-widest px-7 py-3.5 rounded-2xl hover:bg-yellow-300 active:scale-95 transition-all shadow-xl shadow-yellow-400/20">
+                        className="inline-flex items-center gap-2.5 bg-pink-400 text-black font-black text-sm uppercase tracking-widest px-7 py-3.5 rounded-2xl hover:bg-pink-300 active:scale-95 transition-all shadow-xl shadow-pink-400/20">
                         📸 Open Try-On Studio
                       </Link>
                     </div>
@@ -243,9 +246,9 @@ const Home = () => {
                         { e:"⌚", l:"Watch" },   { e:"🪑", l:"Furniture" }, { e:"🕶", l:"Glasses" },
                       ].map((m, i) => (
                         <Link key={m.l} to="/virtual-tryon-hub"
-                          className="flex flex-col items-center gap-1.5 p-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-yellow-400/10 hover:border-yellow-400/30 transition-all group">
+                          className="flex flex-col items-center gap-1.5 p-3 rounded-2xl bg-white/5 border border-white/10 hover:bg-pink-400/10 hover:border-pink-400/30 transition-all group">
                           <span className="text-2xl group-hover:scale-110 transition-transform">{m.e}</span>
-                          <span className="text-[9px] font-black uppercase tracking-wider text-zinc-400 group-hover:text-yellow-400 transition-colors">{m.l}</span>
+                          <span className="text-[9px] font-black uppercase tracking-wider text-zinc-400 group-hover:text-pink-400 transition-colors">{m.l}</span>
                         </Link>
                       ))}
                     </div>
@@ -266,7 +269,7 @@ const Home = () => {
                 >
                   <div>
                     <p className="text-[10px] font-black uppercase tracking-[0.35em] text-secondary mb-3 flex items-center gap-2">
-                      <FaFire className="text-orange-400" size={12} />
+                      <FaFire className="text-pink-400" size={12} />
                       Curated for You
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-black text-zinc-900 dark:text-white tracking-tight flex items-center gap-3">

@@ -126,6 +126,14 @@ export const productApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 30,
     }),
+
+    aiAssistantChat: builder.mutation({
+      query: (payload) => ({
+        url: `${PRODUCT_URL}/ai-assistant`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -147,4 +155,5 @@ export const {
   useCompareProductsQuery,
   useGetAISimilarQuery,
   useGetAIFeatureAnalysisQuery,
+  useAiAssistantChatMutation,
 } = productApiSlice;

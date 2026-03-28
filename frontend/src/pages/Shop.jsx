@@ -1,11 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetFilteredProductsQuery } from "../redux/api/productApiSlice";
 import { useFetchCategoriesQuery } from "../redux/api/categoryApiSlice";
+import { useAiAssistantChatMutation } from "../redux/api/productApiSlice";
 import { setCategories, setProducts, setChecked } from "../redux/features/shop/shopSlice";
+import { addToCart } from "../redux/features/cart/cartSlice";
+import { addToFavorites } from "../redux/features/favorites/favoriteSlice";
+import { addToCompare } from "../redux/features/compare/compareSlice";
 import Loader from "../components/Loader";
 import ProductCard from "./Products/ProductCard";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,10 +22,15 @@ import "./User/scrollbar.css";
 
 const Shop = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { categories, products, checked, radio } = useSelector((state) => state.shop);
+  const { cartItems } = useSelector((state) => state.cart);
+  const favorites = useSelector((state) => state.favorites) || [];
+  const compareList = useSelector((state) => state.compare.compareList);
 
   const categoriesQuery = useFetchCategoriesQuery();
   const filteredProductsQuery = useGetFilteredProductsQuery({ checked, radio });
+  const [aiAssistantChat] = useAiAssistantChatMutation();
 
   const [priceFilter, setPriceFilter] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -189,7 +198,7 @@ const Shop = () => {
       const matchedCategory = categories.find(c => queryText.includes(c.name.toLowerCase()));
       if (matchedCategory) {
         if (!checked.includes(matchedCategory._id)) {
-          setChecked((prev) => [...prev, matchedCategory._id]);
+          dispatch(setChecked([...checked, matchedCategory._id]));
           toast.info(`Smart Search: Applying category '${matchedCategory.name}'`, { autoClose: 2500, hideProgressBar: true });
         }
 
@@ -278,12 +287,80 @@ const Shop = () => {
       matchedCategory = categories.find(c => msgLower.includes(c.name.toLowerCase()));
     }
 
-    if (isClearIntent) {
+    const catalogue = filteredProductsQuery.data || products || [];
+    const bestMatchByText = (queryText) => {
+      const q = (queryText || "").toLowerCase().trim();
+      if (!q) return null;
+      const ranked = catalogue.map((p) => {
+        let score = 0;
+        const name = (p.name || "").toLowerCase();
+        const brand = (p.brand || "").toLowerCase();
+        const desc = (p.description || "").toLowerCase();
+        if (name.includes(q)) score += 5;
+        if (brand.includes(q)) score += 3;
+        if (desc.includes(q)) score += 1;
+        return { p, score };
+      }).sort((a, b) => b.score - a.score);
+      return ranked[0] && ranked[0].score > 0 ? ranked[0].p : null;
+    };
+
+    if (msgLower.includes("open cart") || msgLower.includes("go to cart")) {
+      reply = "Opening your cart now.";
+      action = () => navigate("/cart");
+    } else if (msgLower.includes("open favorites") || msgLower.includes("go to favorites") || msgLower.includes("open wishlist")) {
+      reply = "Taking you to Favorites.";
+      action = () => navigate("/favorites");
+    } else if (msgLower.includes("open compare") || msgLower.includes("go to compare")) {
+      reply = "Opening compare page.";
+      action = () => navigate("/compare");
+    } else if (msgLower.includes("open home") || msgLower.includes("go home")) {
+      reply = "Returning to Home.";
+      action = () => navigate("/");
+    } else if (msgLower.includes("my orders") || msgLower.includes("open orders")) {
+      reply = "Opening your orders page.";
+      action = () => navigate("/user-orders");
+    } else if (msgLower.includes("how many in cart") || msgLower.includes("cart count")) {
+      const count = cartItems.reduce((a, c) => a + (c.qty || 1), 0);
+      reply = `You currently have ${count} item${count === 1 ? "" : "s"} in your cart.`;
+    } else if (msgLower.includes("how many favorites") || msgLower.includes("favorites count")) {
+      reply = `You currently have ${favorites.length} favorite item${favorites.length === 1 ? "" : "s"}.`;
+    } else if (msgLower.includes("compare count")) {
+      reply = `You currently have ${compareList.length} item${compareList.length === 1 ? "" : "s"} in compare list.`;
+    } else if (msgLower.includes("add to cart")) {
+      const query = msgLower.replace("add to cart", "").trim();
+      const match = bestMatchByText(query);
+      if (match) {
+        reply = `${match.name} added to cart.`;
+        action = () => dispatch(addToCart({ ...match, qty: 1 }));
+      } else {
+        reply = "I couldn't identify that product. Try full product name, like 'add to cart iPhone'.";
+      }
+    } else if (msgLower.includes("add to favorites") || msgLower.includes("save favorite")) {
+      const query = msgLower.replace("add to favorites", "").replace("save favorite", "").trim();
+      const match = bestMatchByText(query);
+      if (match) {
+        reply = `${match.name} saved to favorites.`;
+        action = () => dispatch(addToFavorites(match));
+      } else {
+        reply = "I couldn't match a product to save. Try product name.";
+      }
+    } else if (msgLower.includes("add to compare")) {
+      const query = msgLower.replace("add to compare", "").trim();
+      const match = bestMatchByText(query);
+      if (!match) {
+        reply = "I couldn't find that product for compare.";
+      } else if (compareList.length >= 3) {
+        reply = "Compare list is full (max 3 products). Remove one and try again.";
+      } else {
+        reply = `${match.name} added to compare.`;
+        action = () => dispatch(addToCompare(match));
+      }
+    } else if (isClearIntent) {
       reply = "Filters reset! Let's start fresh.";
       action = () => {
         setSearchTerm("");
         setPriceFilter("");
-        setChecked([]);
+        dispatch(setChecked([]));
       };
     } else if (priceMatch && priceMatch[1]) {
       const price = priceMatch[1];
@@ -293,7 +370,7 @@ const Shop = () => {
       reply = `I found the ${matchedCategory.name} category! Applying that filter now. 📂`;
       action = () => {
         if (!checked.includes(matchedCategory._id)) {
-          setChecked([...checked, matchedCategory._id]);
+          dispatch(setChecked([...checked, matchedCategory._id]));
         }
       };
     } else if (msgLower.startsWith("find") || msgLower.startsWith("search") || msgLower.includes("looking for")) {
@@ -346,7 +423,7 @@ const Shop = () => {
     return { reply, action };
   };
 
-  const submitAssistantMessage = (text) => {
+  const submitAssistantMessage = async (text) => {
     if (!text.trim()) return;
 
     const newMsg = { from: "user", text };
@@ -354,16 +431,35 @@ const Shop = () => {
     setUserMessage("");
     setIsTyping(true);
 
-    setTimeout(() => {
-      const response = processBotResponse(text);
-      setAssistantMessages((prev) => [...prev, { from: "bot", text: response.reply }]);
-      setIsTyping(false);
+    const localResponse = processBotResponse(text);
+    let finalReply = localResponse.reply;
 
-      // Execute UI Action if the bot decided to do something!
-      if (response.action) {
-        setTimeout(response.action, 500); // slight delay for smooth aesthetic
-      }
-    }, 1200);
+    try {
+      const ai = await aiAssistantChat({
+        message: text,
+        context: {
+          currentPath: window.location.pathname,
+          cartCount: cartItems.reduce((a, c) => a + (c.qty || 1), 0),
+          favoritesCount: favorites.length,
+          compareCount: compareList.length,
+          activeCategories: checked,
+          activePriceFilter: priceFilter,
+          searchTerm,
+        },
+      }).unwrap();
+
+      if (ai?.reply) finalReply = ai.reply;
+    } catch {
+      // Keep local assistant behavior if backend AI fails.
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 700));
+    setAssistantMessages((prev) => [...prev, { from: "bot", text: finalReply }]);
+    setIsTyping(false);
+
+    if (localResponse.action) {
+      setTimeout(localResponse.action, 250);
+    }
   };
 
   const handleHelpClick = () => {
@@ -394,7 +490,7 @@ const Shop = () => {
         className={`fixed top-0 left-0 h-screen w-72 overflow-y-auto bg-white/40 dark:bg-primary-dark/40 backdrop-blur-[40px] border-r border-white/20 dark:border-white/5 p-6 hidden sm:block z-50 shadow-[4px_0_24px_-4px_rgba(0,0,0,0.1)] dark:shadow-[4px_0_40px_-5px_rgba(0,0,0,0.4)]
           ${highlightFilter ? "ring-2 ring-secondary/50 rounded-r-[initial] bg-white/60 dark:bg-primary-light/60" : ""}
           ${highlightFavorites ? "ring-2 ring-red-500/50 rounded-r-[initial] bg-red-50/50 dark:bg-red-900/10" : ""}
-          ${highlightHome ? "ring-2 ring-yellow-400/50 rounded-r-[initial] bg-blue-50/50 dark:bg-blue-900/10" : ""}
+          ${highlightHome ? "ring-2 ring-pink-400/50 rounded-r-[initial] bg-pink-50/50 dark:bg-pink-900/10" : ""}
           ${highlightCart ? "ring-2 ring-green-500/50 rounded-r-[initial] bg-green-50/50 dark:bg-green-900/10" : ""}
           transition-all duration-500
         `}
@@ -545,8 +641,8 @@ const Shop = () => {
             <span className="text-sm font-black text-content-primary dark:text-surface">Favorites</span>
           </Link>
 
-          <Link to="/" className={`flex items-center gap-4 p-3.5 rounded-2xl hover:bg-blue-50/80 dark:hover:bg-blue-900/20 backdrop-blur-md border border-transparent hover:border-blue-100 dark:hover:border-blue-900/30 transition-all duration-300 group ${highlightHome ? "ring-2 ring-yellow-400/50 bg-blue-50/80 dark:bg-blue-900/20" : ""}`}>
-            <div className="w-10 h-10 rounded-xl bg-blue-100/50 dark:bg-blue-900/30 flex items-center justify-center text-blue-500 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300 shadow-inner">
+          <Link to="/" className={`flex items-center gap-4 p-3.5 rounded-2xl hover:bg-pink-50/80 dark:hover:bg-pink-900/20 backdrop-blur-md border border-transparent hover:border-pink-100 dark:hover:border-pink-900/30 transition-all duration-300 group ${highlightHome ? "ring-2 ring-pink-400/50 bg-pink-50/80 dark:bg-pink-900/20" : ""}`}>
+            <div className="w-10 h-10 rounded-xl bg-pink-100/50 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:scale-110 group-hover:bg-pink-500 group-hover:text-white transition-all duration-300 shadow-inner">
               <FaHome size={16} />
             </div>
             <span className="text-sm font-black text-content-primary dark:text-surface">Dashboard</span>
@@ -582,7 +678,7 @@ const Shop = () => {
               <p className="text-2xl font-black text-primary dark:text-white mb-2">No assets found</p>
               <p className="text-sm font-bold text-zinc-500">Your specific criteria yielded zero results.</p>
               <button
-                onClick={() => { setChecked([]); setPriceFilter(""); setSearchTerm(""); }}
+                onClick={() => { dispatch(setChecked([])); setPriceFilter(""); setSearchTerm(""); }}
                 className="mt-8 px-8 py-4 rounded-2xl bg-primary dark:bg-white text-white dark:text-primary text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl"
               >
                 Reset Parameters
@@ -600,7 +696,7 @@ const Shop = () => {
 
       {/* Ultra Premium AI Assistant */}
       {createPortal(
-        <div className="fixed bottom-8 right-8 z-[9999] hidden sm:block">
+        <div className="fixed bottom-5 right-5 sm:bottom-8 sm:right-8 z-[9999]">
           {/* Floating Orb Toggle Button */}
           <button
             onClick={() => setIsAssistantOpen(!isAssistantOpen)}
@@ -633,7 +729,7 @@ const Shop = () => {
                 animate={{ opacity: 1, scale: 1, y: 0, rx: 40, filter: "blur(0px)" }}
                 exit={{ opacity: 0, scale: 0.8, y: 40, filter: "blur(10px)" }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                className="absolute bottom-24 right-0 w-[420px] h-[650px] min-w-[320px] min-h-[450px] bg-white/80 dark:bg-[#060a12]/80 backdrop-blur-[40px] rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.3),_0_0_40px_rgba(212,175,55,0.1)] flex flex-col border border-white/40 dark:border-white/10 overflow-hidden resize"
+                className="absolute bottom-20 right-0 w-[92vw] sm:w-[420px] h-[72vh] sm:h-[650px] min-w-[300px] sm:min-w-[320px] min-h-[420px] sm:min-h-[450px] bg-white/80 dark:bg-[#060a12]/80 backdrop-blur-[40px] rounded-[2rem] sm:rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.3),_0_0_40px_rgba(212,175,55,0.1)] flex flex-col border border-white/40 dark:border-white/10 overflow-hidden resize"
                 style={{ touchAction: "none" }}
               >
                 {/* Premium Header */}

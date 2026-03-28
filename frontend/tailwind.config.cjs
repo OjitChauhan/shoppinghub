@@ -5,30 +5,30 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        /* ── DARK THEME (navy + orange + red) ── */
+        /* ── DARK THEME (black + pink) ── */
         primary: {
-          DEFAULT: "#05091A",   // deep navy background
-          light:   "#0B1530",   // slightly lighter navy
-          dark:    "#020612",   // darkest navy
+          DEFAULT: "#0A0A0B",
+          light:   "#151518",
+          dark:    "#020203",
         },
         /* ── LIGHT THEME surface ── */
-        surface: "#FFFFFF",       // pure white
-        "surface-2": "#FFF8E7",   // warm yellow-tinted white
+        surface: "#FFFFFF",
+        "surface-2": "#FFF5FA",
         "content-primary": "#111827",
         "content-secondary": "#374151",
 
-        /* ── ACCENT: orange (primary CTA) ── */
+        /* ── ACCENT: pink (primary CTA) ── */
         accent: {
-          DEFAULT: "#F97316",   // vibrant orange
-          light:   "#FB923C",
-          dark:    "#EA580C",
+          DEFAULT: "#EC4899",
+          light:   "#F472B6",
+          dark:    "#DB2777",
         },
 
-        /* ── SECONDARY: yellow (light theme CTA) ── */
+        /* ── SECONDARY: baby pink */
         secondary: {
-          DEFAULT: "#FBBF24",   // amber yellow
-          light:   "#FDE68A",
-          dark:    "#D97706",
+          DEFAULT: "#F9A8D4",
+          light:   "#FBCFE8",
+          dark:    "#EC4899",
         },
 
         /* ── DANGER: red accent ── */
@@ -77,9 +77,9 @@ module.exports = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'hero-dark': 'linear-gradient(135deg, #05091A 0%, #0B1530 50%, #0F1E3D 100%)',
-        'hero-light': 'linear-gradient(135deg, #FFFFFF 0%, #FFF8E7 50%, #FEF3C7 100%)',
-        'orange-glow': 'radial-gradient(ellipse at 60% 0%, rgba(249,115,22,0.18) 0%, transparent 70%)',
+        'hero-dark': 'linear-gradient(135deg, #0A0A0B 0%, #151518 50%, #1D1D22 100%)',
+        'hero-light': 'linear-gradient(135deg, #FFFFFF 0%, #FFF5FA 50%, #FFE4F1 100%)',
+        'orange-glow': 'radial-gradient(ellipse at 60% 0%, rgba(236,72,153,0.18) 0%, transparent 70%)',
       },
     }
   },

@@ -10,6 +10,7 @@ import budgetReducer from "./features/budget/budgetSlice";
 import advisorReducer from "./features/advisor/advisorSlice";
 import activityReducer from "./features/activity/activitySlice";
 import compareReducer from "./features/compare/compareSlice";
+import aiAssistantReducer from "./features/aiAssistant/aiAssistantSlice";
 
 const initialFavorites = getFavoritesFromLocalStorage() || [];
 
@@ -24,6 +25,7 @@ const store = configureStore({
     advisor: advisorReducer,
     activity: activityReducer,
     compare: compareReducer,
+    aiAssistant: aiAssistantReducer,
   },
 
   preloadedState: {

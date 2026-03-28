@@ -46,7 +46,7 @@ function StarField({ count = 900, dark }) {
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color={dark ? "#F97316" : "#F59E0B"}
+        color={dark ? "#ef4444" : "#EC4899"}
         size={0.055}
         sizeAttenuation
         depthWrite={false}
@@ -111,20 +111,20 @@ function CameraDrift() {
 
 /* ── Scene ── */
 function Scene({ dark }) {
-  const bg = dark ? "#05091A" : "#FFFFFF";
+  const bg = dark ? "#0A0A0B" : "#FFFFFF";
   return (
     <>
       <color attach="background" args={[bg]} />
       <ambientLight intensity={0.4} />
-      <pointLight position={[6, 6, 6]}   color={dark ? "#F97316" : "#FBBF24"} intensity={3} />
-      <pointLight position={[-6, -4, -6]} color={dark ? "#EF4444" : "#FB923C"} intensity={2} />
+      <pointLight position={[6, 6, 6]}   color={dark ? "#ef4444" : "#F9A8D4"} intensity={3} />
+      <pointLight position={[-6, -4, -6]} color={dark ? "#be123c" : "#F472B6"} intensity={2} />
 
       <StarField count={800} dark={dark} />
 
       {/* Orbs */}
-      <GlowOrb position={[-4,  2, -6]} color={dark ? "#F97316" : "#FBBF24"} speed={1.2} distort={0.5} radius={2.0} />
-      <GlowOrb position={[ 5, -2, -8]} color={dark ? "#EF4444" : "#FB923C"} speed={0.8} distort={0.35} radius={1.6} />
-      <GlowOrb position={[ 0,  4, -10]} color={dark ? "#7C3AED" : "#A78BFA"} speed={0.6} distort={0.6} radius={3.0} />
+      <GlowOrb position={[-4,  2, -6]} color={dark ? "#ef4444" : "#F9A8D4"} speed={1.2} distort={0.5} radius={2.0} />
+      <GlowOrb position={[ 5, -2, -8]} color={dark ? "#be123c" : "#F472B6"} speed={0.8} distort={0.35} radius={1.6} />
+      <GlowOrb position={[ 0,  4, -10]} color={dark ? "#27272A" : "#FBCFE8"} speed={0.6} distort={0.6} radius={3.0} />
 
       <SpinRing dark={dark} />
       <CameraDrift />

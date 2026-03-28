@@ -41,7 +41,7 @@ const AdminDashboard = () => {
         toolbar: { show: false },
       },
       theme: { mode: isDark ? "dark" : "light" },
-      colors: ["#F97316"],
+      colors: ["#EC4899"],
       fill: {
         type: "gradient",
         gradient: { shadeIntensity:1, opacityFrom:0.5, opacityTo:0.05, stops:[0,90,100] },
@@ -52,7 +52,7 @@ const AdminDashboard = () => {
         borderColor: isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)",
         strokeDashArray: 4,
       },
-      markers: { size: 5, colors: ["#F97316"], strokeColors: isDark ? "#0B1530" : "#fff", strokeWidth: 3 },
+      markers: { size: 5, colors: ["#EC4899"], strokeColors: isDark ? "#151518" : "#fff", strokeWidth: 3 },
       xaxis: {
         categories: [],
         labels: { style: { colors: isDark ? "#94A3B8" : "#6B7280", fontFamily:"Inter,sans-serif", fontSize:"12px" } },
@@ -84,30 +84,30 @@ const AdminDashboard = () => {
   }, [salesDetail]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#05091A] transition-colors">
+    <div className="min-h-screen bg-[#fff7fb] dark:bg-[#0A0A0B] transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
 
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-display font-black text-gray-900 dark:text-white">
-            Admin <span className="text-orange-500">Dashboard</span>
+            Admin <span className="text-pink-500">Dashboard</span>
           </h1>
           <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">Overview of your store performance</p>
         </div>
 
         {/* Stat cards */}
         <div className="flex flex-col sm:flex-row gap-5 mb-10">
-          <StatCard icon="💰" label="Total Sales"  color="bg-orange-100 dark:bg-orange-500/15"
+          <StatCard icon="💰" label="Total Sales"  color="bg-pink-100 dark:bg-pink-500/15"
             value={`₹${sales?.totalSales?.toFixed(2) ?? "—"}`}    loading={isLoading} />
-          <StatCard icon="👤" label="Customers"    color="bg-blue-100 dark:bg-blue-500/15"
+          <StatCard icon="👤" label="Customers"    color="bg-zinc-100 dark:bg-white/10"
             value={customers?.length ?? "—"}                        loading={loading} />
-          <StatCard icon="📦" label="Orders"       color="bg-emerald-100 dark:bg-emerald-500/15"
+          <StatCard icon="📦" label="Orders"       color="bg-pink-50 dark:bg-pink-500/10"
             value={orders?.totalOrders ?? "—"}                      loading={loadingTwo} />
         </div>
 
         {/* Chart */}
         <div className="rounded-3xl p-6 md:p-8 mb-10
-          bg-white dark:bg-[#0B1530]
+          bg-white dark:bg-[#151518]
           border border-black/6 dark:border-white/8
           shadow-card-light dark:shadow-card-dark">
           <div className="flex items-center justify-between mb-6">
@@ -119,7 +119,7 @@ const AdminDashboard = () => {
 
         {/* Orders list */}
         <div className="rounded-3xl overflow-hidden
-          bg-white dark:bg-[#0B1530]
+          bg-white dark:bg-[#151518]
           border border-black/6 dark:border-white/8
           shadow-card-light dark:shadow-card-dark">
           <div className="px-6 py-5 border-b border-black/6 dark:border-white/8">

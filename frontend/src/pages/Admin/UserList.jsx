@@ -38,17 +38,17 @@ const UserList = () => {
     } catch (err) { toast.error(err?.data?.message || err.error); }
   };
 
-  const inputCls = "w-full px-3 py-1.5 rounded-lg text-sm outline-none bg-gray-50 dark:bg-[#05091A] border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all";
+  const inputCls = "w-full px-3 py-1.5 rounded-lg text-sm outline-none bg-gray-50 dark:bg-[#0A0A0B] border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all";
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#05091A] transition-colors px-4 sm:px-6 py-8">
+    <div className="min-h-screen bg-[#fff7fb] dark:bg-[#0A0A0B] transition-colors px-4 sm:px-6 py-8 rounded-[2rem]">
       <div className="max-w-7xl mx-auto">
 
         <div className="mb-6 flex items-center gap-3">
           <h1 className="text-2xl md:text-3xl font-display font-black text-gray-900 dark:text-white">
-            All <span className="text-orange-500">Users</span>
+            All <span className="text-pink-500">Users</span>
           </h1>
-          <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-orange-100 dark:bg-orange-500/15 text-orange-600 dark:text-orange-400">
+          <span className="px-2.5 py-0.5 rounded-full text-xs font-black bg-pink-100 dark:bg-pink-500/15 text-pink-600 dark:text-pink-400">
             {users.length}
           </span>
         </div>
@@ -57,7 +57,7 @@ const UserList = () => {
           <Message variant="danger">{error?.data?.message || error.error}</Message>
         ) : (
           <div className="rounded-2xl overflow-hidden
-            bg-white dark:bg-[#0B1530]
+            bg-white dark:bg-[#151518]
             border border-black/6 dark:border-white/8
             shadow-card-light dark:shadow-card-dark">
             <div className="overflow-x-auto">
@@ -72,7 +72,7 @@ const UserList = () => {
                 <tbody>
                   {users.map((user, i) => (
                     <tr key={user._id}
-                      className={`border-b border-black/4 dark:border-white/5 transition-colors hover:bg-orange-50 dark:hover:bg-orange-500/6 ${i%2===0?"":"bg-gray-50/50 dark:bg-white/2"}`}>
+                      className={`border-b border-black/4 dark:border-white/5 transition-colors hover:bg-pink-50 dark:hover:bg-pink-500/6 ${i%2===0?"":"bg-gray-50/50 dark:bg-white/2"}`}>
 
                       <td className="px-4 py-3 font-mono text-xs text-gray-400 dark:text-slate-500 max-w-[100px] truncate">{user._id}</td>
 
@@ -80,14 +80,14 @@ const UserList = () => {
                         {editableUserId === user._id ? (
                           <div className="flex items-center gap-2">
                             <input type="text" value={editableUserName} onChange={e => setEditableUserName(e.target.value)} className={inputCls} />
-                            <button onClick={() => updateHandler(user._id)} className="p-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white transition-all" aria-label="Save">
+                            <button onClick={() => updateHandler(user._id)} className="p-1.5 rounded-lg bg-pink-500 hover:bg-pink-600 text-white transition-all" aria-label="Save">
                               <FaCheck size={11} />
                             </button>
                           </div>
                         ) : (
                           <div className="flex items-center justify-between gap-2">
                             <span className="font-medium text-gray-800 dark:text-slate-100">{user.username}</span>
-                            <button onClick={() => toggleEdit(user._id, user.username, user.email)} className="text-gray-400 dark:text-slate-500 hover:text-orange-500 dark:hover:text-orange-400 transition-colors" aria-label="Edit">
+                            <button onClick={() => toggleEdit(user._id, user.username, user.email)} className="text-gray-400 dark:text-slate-500 hover:text-pink-500 dark:hover:text-pink-400 transition-colors" aria-label="Edit">
                               <FaEdit size={13} />
                             </button>
                           </div>
@@ -98,14 +98,14 @@ const UserList = () => {
                         {editableUserId === user._id ? (
                           <div className="flex items-center gap-2">
                             <input type="email" value={editableUserEmail} onChange={e => setEditableUserEmail(e.target.value)} className={inputCls} />
-                            <button onClick={() => updateHandler(user._id)} className="p-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white transition-all" aria-label="Save">
+                            <button onClick={() => updateHandler(user._id)} className="p-1.5 rounded-lg bg-pink-500 hover:bg-pink-600 text-white transition-all" aria-label="Save">
                               <FaCheck size={11} />
                             </button>
                           </div>
                         ) : (
                           <div className="flex items-center justify-between gap-2">
-                            <a href={`mailto:${user.email}`} className="text-gray-500 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors truncate">{user.email}</a>
-                            <button onClick={() => toggleEdit(user._id, user.username, user.email)} className="text-gray-400 dark:text-slate-500 hover:text-orange-500 dark:hover:text-orange-400 transition-colors" aria-label="Edit">
+                            <a href={`mailto:${user.email}`} className="text-gray-500 dark:text-slate-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors truncate">{user.email}</a>
+                            <button onClick={() => toggleEdit(user._id, user.username, user.email)} className="text-gray-400 dark:text-slate-500 hover:text-pink-500 dark:hover:text-pink-400 transition-colors" aria-label="Edit">
                               <FaEdit size={13} />
                             </button>
                           </div>
@@ -114,7 +114,7 @@ const UserList = () => {
 
                       <td className="px-4 py-3">
                         {user.isAdmin ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-orange-100 dark:bg-orange-500/15 text-orange-600 dark:text-orange-400">
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-pink-100 dark:bg-pink-500/15 text-pink-600 dark:text-pink-400">
                             <FaCheck size={8} /> Admin
                           </span>
                         ) : (

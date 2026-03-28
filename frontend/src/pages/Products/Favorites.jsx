@@ -6,24 +6,19 @@ const Favorites = () => {
   const favorites = useSelector(selectFavoriteProduct);
 
   return (
-    <div
-      className="min-h-screen py-6 px-4"
-      style={{
-        background: "linear-gradient(135deg, #FAF7F6 0%, #E3DED7 100%)",
-      }}
-    >
+    <div className="min-h-screen py-6 px-4 bg-gradient-to-br from-[#fff7fb] via-[#fff0f7] to-[#ffe4f1] dark:from-[#0a0a0b] dark:via-[#131316] dark:to-[#1a1a20] transition-colors duration-300 rounded-[2rem]">
       {/* Header */}
-      <h1 className="text-3xl sm:text-4xl font-bold text-[#285570] mb-8 text-center drop-shadow-lg">
+      <h1 className="text-3xl sm:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-8 text-center drop-shadow-lg">
         ❤️ Favorite Products
       </h1>
 
       {/* Empty state */}
       {favorites.length === 0 ? (
-        <div className="text-center bg-[#E3DED7] text-[#333333] py-12 rounded-2xl shadow-lg max-w-xl mx-auto">
+        <div className="text-center bg-white/75 dark:bg-white/5 text-zinc-700 dark:text-zinc-200 py-12 rounded-2xl shadow-lg max-w-xl mx-auto border border-pink-100 dark:border-pink-500/20 backdrop-blur-md">
           <p className="text-lg mb-4">You haven’t added any favorites yet.</p>
-          <p className="text-[#285570] font-semibold">
+          <p className="text-zinc-800 dark:text-zinc-200 font-semibold">
             Browse products and click the{" "}
-            <span className="text-[#3CBEAC]">♥</span> icon to save them here!
+            <span className="text-pink-500">♥</span> icon to save them here!
           </p>
         </div>
       ) : (
@@ -37,10 +32,11 @@ const Favorites = () => {
               <div
                 className="
                   relative
-                  bg-white
-                  border border-[#E3DED7]
+                  bg-white dark:bg-[#141418]
+                  border border-pink-100 dark:border-pink-500/20
                   rounded-2xl
                   shadow-lg
+                  dark:shadow-black/30
                   transition-transform
                   duration-500
                   transform
@@ -69,10 +65,10 @@ const Favorites = () => {
 
                 {/* Product Info */}
                 <div className="flex flex-col justify-between flex-1 text-sm sm:text-base">
-                  <h3 className="font-semibold text-[#285570] truncate">
+                  <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 truncate">
                     {product.name}
                   </h3>
-                  <p className="text-[#3CBEAC] font-bold">
+                  <p className="text-pink-500 font-bold">
                     Rs.{product.price?.toFixed(2)}
                   </p>
                 </div>
@@ -80,7 +76,7 @@ const Favorites = () => {
                 {/* Hover overlay */}
                 <div
                   className="
-                    absolute inset-0 bg-black bg-opacity-20 rounded-2xl 
+                    absolute inset-0 bg-black/25 dark:bg-black/35 rounded-2xl 
                     opacity-0 hover:opacity-100 transition-opacity duration-300
                     flex items-center justify-center text-white text-sm font-bold
                   "
